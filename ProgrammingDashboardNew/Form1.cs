@@ -227,9 +227,9 @@ namespace ProgrammingDashboardNew
             jobsGrid.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             jobsGrid.RowHeadersWidth = 20;
             jobsGrid.Columns["nSeq"].Width = 40;
-            jobsGrid.Columns["nMake_Quantity"].Width = 45;
-            jobsGrid.Columns["sRev"].Width = 55;
-            jobsGrid.Columns["JPri_DueDate"].Width = 105;
+            jobsGrid.Columns["nMake_Quantity"].Width = 50;
+            jobsGrid.Columns["sRev"].Width = 60;
+            jobsGrid.Columns["JPri_DueDate"].Width = 115;
             jobsGrid.Sort(jobsGrid.Columns["JPri_DueDate"], ListSortDirection.Ascending);
         }
 

@@ -35,6 +35,7 @@
             refreshButton = new Button();
             startedButton = new Button();
             clearTimestamp = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)jobsGrid).BeginInit();
             SuspendLayout();
             // 
@@ -45,9 +46,9 @@
             jobsGrid.AllowUserToResizeColumns = false;
             jobsGrid.AllowUserToResizeRows = false;
             jobsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            jobsGrid.Location = new Point(12, 95);
+            jobsGrid.Location = new Point(12, 108);
             jobsGrid.Name = "jobsGrid";
-            jobsGrid.Size = new Size(1608, 559);
+            jobsGrid.Size = new Size(1372, 525);
             jobsGrid.TabIndex = 0;
             // 
             // releasedJobs
@@ -55,9 +56,9 @@
             releasedJobs.AutoSize = true;
             releasedJobs.Checked = true;
             releasedJobs.CheckState = CheckState.Checked;
-            releasedJobs.Location = new Point(36, 60);
+            releasedJobs.Location = new Point(28, 79);
             releasedJobs.Name = "releasedJobs";
-            releasedJobs.Size = new Size(126, 19);
+            releasedJobs.Size = new Size(145, 23);
             releasedJobs.TabIndex = 1;
             releasedJobs.Text = "Released Jobs Only";
             releasedJobs.UseVisualStyleBackColor = true;
@@ -66,26 +67,26 @@
             // operationFilter
             // 
             operationFilter.FormattingEnabled = true;
-            operationFilter.Location = new Point(224, 58);
+            operationFilter.Location = new Point(179, 78);
             operationFilter.Name = "operationFilter";
-            operationFilter.Size = new Size(116, 23);
+            operationFilter.Size = new Size(95, 25);
             operationFilter.TabIndex = 2;
             operationFilter.SelectedIndexChanged += operationFilter_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(346, 60);
+            label1.Location = new Point(280, 81);
             label1.Name = "label1";
-            label1.Size = new Size(89, 15);
+            label1.Size = new Size(105, 19);
             label1.TabIndex = 3;
             label1.Text = "Operation Filter";
             // 
             // refreshButton
             // 
-            refreshButton.Location = new Point(1517, 891);
+            refreshButton.Location = new Point(12, 751);
             refreshButton.Name = "refreshButton";
-            refreshButton.Size = new Size(103, 23);
+            refreshButton.Size = new Size(118, 26);
             refreshButton.TabIndex = 4;
             refreshButton.Text = "Refresh Data";
             refreshButton.UseVisualStyleBackColor = true;
@@ -93,9 +94,9 @@
             // 
             // startedButton
             // 
-            startedButton.Location = new Point(12, 681);
+            startedButton.Location = new Point(12, 687);
             startedButton.Name = "startedButton";
-            startedButton.Size = new Size(118, 23);
+            startedButton.Size = new Size(118, 26);
             startedButton.TabIndex = 5;
             startedButton.Text = "Started";
             startedButton.UseVisualStyleBackColor = true;
@@ -103,19 +104,31 @@
             // 
             // clearTimestamp
             // 
-            clearTimestamp.Location = new Point(12, 780);
+            clearTimestamp.Location = new Point(12, 719);
             clearTimestamp.Name = "clearTimestamp";
-            clearTimestamp.Size = new Size(118, 23);
+            clearTimestamp.Size = new Size(118, 26);
             clearTimestamp.TabIndex = 6;
             clearTimestamp.Text = "Clear Timestamp";
             clearTimestamp.UseVisualStyleBackColor = true;
             clearTimestamp.Click += clearTimestamp_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 30F);
+            label2.Location = new Point(361, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(559, 54);
+            label2.TabIndex = 7;
+            label2.Text = "PROGRAMMING DASHBOARD";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1632, 926);
+            BackColor = Color.White;
+            ClientSize = new Size(1400, 809);
+            Controls.Add(label2);
             Controls.Add(clearTimestamp);
             Controls.Add(startedButton);
             Controls.Add(refreshButton);
@@ -123,8 +136,10 @@
             Controls.Add(operationFilter);
             Controls.Add(releasedJobs);
             Controls.Add(jobsGrid);
+            Font = new Font("Segoe UI", 10F);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
-            Text = "Form1";
+            ShowIcon = false;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)jobsGrid).EndInit();
             ResumeLayout(false);
@@ -140,5 +155,6 @@
         private Button refreshButton;
         private Button startedButton;
         private Button clearTimestamp;
+        private Label label2;
     }
 }
