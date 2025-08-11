@@ -36,7 +36,11 @@
             startedButton = new Button();
             clearTimestamp = new Button();
             label2 = new Label();
+            headerPanel = new Panel();
+            completeButton = new Button();
+            resetMockDatabase = new Button();
             ((System.ComponentModel.ISupportInitialize)jobsGrid).BeginInit();
+            headerPanel.SuspendLayout();
             SuspendLayout();
             // 
             // jobsGrid
@@ -56,7 +60,7 @@
             releasedJobs.AutoSize = true;
             releasedJobs.Checked = true;
             releasedJobs.CheckState = CheckState.Checked;
-            releasedJobs.Location = new Point(28, 79);
+            releasedJobs.Location = new Point(3, 75);
             releasedJobs.Name = "releasedJobs";
             releasedJobs.Size = new Size(145, 23);
             releasedJobs.TabIndex = 1;
@@ -67,7 +71,7 @@
             // operationFilter
             // 
             operationFilter.FormattingEnabled = true;
-            operationFilter.Location = new Point(179, 78);
+            operationFilter.Location = new Point(154, 73);
             operationFilter.Name = "operationFilter";
             operationFilter.Size = new Size(95, 25);
             operationFilter.TabIndex = 2;
@@ -76,7 +80,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(280, 81);
+            label1.Location = new Point(255, 76);
             label1.Name = "label1";
             label1.Size = new Size(105, 19);
             label1.TabIndex = 3;
@@ -84,7 +88,7 @@
             // 
             // refreshButton
             // 
-            refreshButton.Location = new Point(12, 751);
+            refreshButton.Location = new Point(375, 71);
             refreshButton.Name = "refreshButton";
             refreshButton.Size = new Size(118, 26);
             refreshButton.TabIndex = 4;
@@ -94,9 +98,9 @@
             // 
             // startedButton
             // 
-            startedButton.Location = new Point(12, 687);
+            startedButton.Location = new Point(12, 650);
             startedButton.Name = "startedButton";
-            startedButton.Size = new Size(118, 26);
+            startedButton.Size = new Size(176, 26);
             startedButton.TabIndex = 5;
             startedButton.Text = "Started";
             startedButton.UseVisualStyleBackColor = true;
@@ -104,9 +108,9 @@
             // 
             // clearTimestamp
             // 
-            clearTimestamp.Location = new Point(12, 719);
+            clearTimestamp.Location = new Point(1198, 654);
             clearTimestamp.Name = "clearTimestamp";
-            clearTimestamp.Size = new Size(118, 26);
+            clearTimestamp.Size = new Size(176, 26);
             clearTimestamp.TabIndex = 6;
             clearTimestamp.Text = "Clear Timestamp";
             clearTimestamp.UseVisualStyleBackColor = true;
@@ -115,26 +119,56 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 30F);
-            label2.Location = new Point(361, 9);
+            label2.Font = new Font("Segoe UI", 30F, FontStyle.Bold);
+            label2.Location = new Point(407, 8);
             label2.Name = "label2";
-            label2.Size = new Size(559, 54);
+            label2.Size = new Size(595, 54);
             label2.TabIndex = 7;
             label2.Text = "PROGRAMMING DASHBOARD";
+            // 
+            // headerPanel
+            // 
+            headerPanel.Controls.Add(label2);
+            headerPanel.Controls.Add(releasedJobs);
+            headerPanel.Controls.Add(operationFilter);
+            headerPanel.Controls.Add(refreshButton);
+            headerPanel.Controls.Add(label1);
+            headerPanel.Location = new Point(12, 1);
+            headerPanel.Name = "headerPanel";
+            headerPanel.Size = new Size(1372, 101);
+            headerPanel.TabIndex = 8;
+            // 
+            // completeButton
+            // 
+            completeButton.Location = new Point(194, 650);
+            completeButton.Name = "completeButton";
+            completeButton.Size = new Size(176, 26);
+            completeButton.TabIndex = 9;
+            completeButton.Text = "Complete";
+            completeButton.UseVisualStyleBackColor = true;
+            completeButton.Click += completeButton_Click;
+            // 
+            // resetMockDatabase
+            // 
+            resetMockDatabase.Location = new Point(1016, 654);
+            resetMockDatabase.Name = "resetMockDatabase";
+            resetMockDatabase.Size = new Size(176, 26);
+            resetMockDatabase.TabIndex = 10;
+            resetMockDatabase.Text = "Reset Mock Database";
+            resetMockDatabase.UseVisualStyleBackColor = true;
+            resetMockDatabase.Click += resetMockDatabase_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1400, 809);
-            Controls.Add(label2);
+            ClientSize = new Size(1400, 692);
+            Controls.Add(resetMockDatabase);
+            Controls.Add(completeButton);
+            Controls.Add(headerPanel);
             Controls.Add(clearTimestamp);
             Controls.Add(startedButton);
-            Controls.Add(refreshButton);
-            Controls.Add(label1);
-            Controls.Add(operationFilter);
-            Controls.Add(releasedJobs);
             Controls.Add(jobsGrid);
             Font = new Font("Segoe UI", 10F);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -142,8 +176,9 @@
             ShowIcon = false;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)jobsGrid).EndInit();
+            headerPanel.ResumeLayout(false);
+            headerPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -156,5 +191,8 @@
         private Button startedButton;
         private Button clearTimestamp;
         private Label label2;
+        private Panel headerPanel;
+        private Button completeButton;
+        private Button resetMockDatabase;
     }
 }

@@ -10,7 +10,7 @@ namespace ProgrammingDashboardNew
     public partial class Form1 : Form
     {
         private DataTable dt;
-        private readonly bool useSqlite = false; // Set to true for SQLite, false for SQL Server
+        private readonly bool useSqlite = true; // Set to true for SQLite, false for SQL Server
 
         public Form1()
         {
@@ -22,6 +22,58 @@ namespace ProgrammingDashboardNew
             ReloadData();
             PopulateOperationList();
             ApplyFilters();
+            ApplyFormatting();
+        }
+
+        private void ApplyFormatting()
+        {
+            // Form level formatting
+            this.BackColor = Color.FromArgb(11, 28, 44);
+            this.ForeColor = Color.White;
+            this.Font = new Font("Segoe UI", 10);
+
+            // Controls formatting
+            refreshButton.FlatStyle = FlatStyle.Flat;
+            refreshButton.BackColor = Color.FromArgb(255, 75, 62);
+            refreshButton.ForeColor = Color.White;
+            refreshButton.FlatAppearance.BorderSize = 0;
+            startedButton.FlatStyle = FlatStyle.Flat;
+            startedButton.BackColor = Color.FromArgb(255, 75, 62);
+            startedButton.ForeColor = Color.White;
+            startedButton.FlatAppearance.BorderSize = 0;
+            clearTimestamp.FlatStyle = FlatStyle.Flat;
+            clearTimestamp.BackColor = Color.FromArgb(255, 75, 62);
+            clearTimestamp.ForeColor = Color.White;
+            clearTimestamp.FlatAppearance.BorderSize = 0;
+            completeButton.FlatStyle = FlatStyle.Flat;
+            completeButton.BackColor = Color.FromArgb(255, 75, 62);
+            completeButton.ForeColor = Color.White;
+            completeButton.FlatAppearance.BorderSize = 0;
+            resetMockDatabase.FlatStyle = FlatStyle.Flat;
+            resetMockDatabase.BackColor = Color.FromArgb(255, 75, 62);
+            resetMockDatabase.ForeColor = Color.White;
+            resetMockDatabase.FlatAppearance.BorderSize = 0;
+            if(useSqlite)
+            {
+                resetMockDatabase.Visible = true;
+            }
+            else
+            {
+                resetMockDatabase.Visible = false;
+            }
+
+            //DataGridView formatting
+            jobsGrid.BackgroundColor = Color.White;
+            jobsGrid.GridColor = Color.FromArgb(200, 200, 200);
+            jobsGrid.DefaultCellStyle.BackColor = Color.White;
+            jobsGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
+            jobsGrid.DefaultCellStyle.ForeColor = Color.Black;
+            jobsGrid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(255, 75, 62);
+            jobsGrid.DefaultCellStyle.SelectionForeColor = Color.White;
+            jobsGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(11, 28, 44);
+            jobsGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            jobsGrid.EnableHeadersVisualStyles = false;
+
         }
 
         private void ReloadData()
@@ -36,6 +88,7 @@ namespace ProgrammingDashboardNew
             }
         }
 
+        // Populates combobox with operation filter options
         private void PopulateOperationList()
         {
             operationFilter.Items.Clear();
@@ -45,6 +98,7 @@ namespace ProgrammingDashboardNew
             operationFilter.SelectedIndex = -1;
         }
 
+        // Loads data from SQLite database
         private void LoadFromSQLite()
         {
             string dbPath = Path.Combine(Application.StartupPath, "Data", "MockERP.db");
@@ -125,11 +179,13 @@ namespace ProgrammingDashboardNew
             FormatJobTable();
         }
 
+        // Returns the SQL Server connection string
         private string GetSQLServerConnectionString()
         {
             return "Server=Clyde;Database=EMPOWER;Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
+        // Loads data from SQL Server database
         private void LoadFromSqlServer()
         {
             string query = @"SELECT 
@@ -206,6 +262,7 @@ namespace ProgrammingDashboardNew
             FormatJobTable();
         }
 
+        // Formats the DataGridView columns
         private void FormatJobTable()
         {
             // Rename column headers
@@ -233,16 +290,19 @@ namespace ProgrammingDashboardNew
             jobsGrid.Sort(jobsGrid.Columns["JPri_DueDate"], ListSortDirection.Ascending);
         }
 
+        // Event handler for checkbox to filter released jobs
         private void releasedJobs_CheckedChanged(object sender, EventArgs e)
         {
             ApplyFilters();
         }
 
+        // Event handler for operation filter selection change
         private void operationFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             ApplyFilters();
         }
 
+        // Applies filters based on user selections
         private void ApplyFilters()
         {
             if (dt == null) return;
@@ -270,6 +330,7 @@ namespace ProgrammingDashboardNew
             FormatJobTable();
         }
 
+        // Event handler for refresh button click
         private void refreshButton_Click(object sender, EventArgs e)
         {
             ReloadData();
@@ -277,6 +338,7 @@ namespace ProgrammingDashboardNew
             FormatJobTable();
         }
 
+        // Event handler for clicking started button
         private void startedButton_Click(object sender, EventArgs e)
         {
             if (jobsGrid.SelectedRows.Count == 0)
@@ -305,6 +367,7 @@ namespace ProgrammingDashboardNew
             ApplyFilters();
         }
 
+        // Updates the timestamp to started for a job operation in SQL Server
         private void SQLStartedTimestamp(string job, int seq, string updateText)
         {
             string updateQuery = @"
@@ -325,6 +388,7 @@ namespace ProgrammingDashboardNew
             }
         }
 
+        // Updates the timestamp to started for a job operation in SQLite
         private void SQLiteStartedTimestamp(string job, int seq, string updateText)
         {
             string dbPath = Path.Combine(Application.StartupPath, "Data", "MockERP.db");
@@ -372,6 +436,7 @@ namespace ProgrammingDashboardNew
             ApplyFilters();
         }
 
+        // Clears the timestamp for a job operation in SQLite
         private void SQLiteClearTimestamp(string job, int seq)
         {
             string dbPath = Path.Combine(Application.StartupPath, "Data", "MockERP.db");
@@ -393,6 +458,7 @@ namespace ProgrammingDashboardNew
             }
         }
 
+        // Clears the timestamp for a job operation in SQL Server
         private void SQLClearTimestamp(string job, int seq)
         {
             string updateQuery = @"
@@ -412,15 +478,132 @@ namespace ProgrammingDashboardNew
             }
         }
 
+        private void completeButton_Click(object sender, EventArgs e)
+        {
+            if (jobsGrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a row first.");
+                return;
+            }
 
+            var selectedRow = jobsGrid.SelectedRows[0];
+            string job = selectedRow.Cells["sJob"].Value.ToString();
+            int seq = Convert.ToInt32(selectedRow.Cells["nSeq"].Value);
+            string user = Environment.UserName.ToUpper();
+            string timeStamp = DateTime.Now.ToString("MM/dd/yyyy HH:mm tt");
+            string updateText = $"[{user} - {timeStamp}] - Complete";
 
+            if (useSqlite)
+            {
+                SQLiteCompleteTimestamp(job, seq, updateText);
+            }
+            else
+            {
+                SQLCompleteTimestamp(job, seq, updateText);
+            }
 
+            ReloadData();
+            ApplyFilters();
+        }
 
+        // Completes the timestamp for a job operation in SQL Server and closes operation
+        private void SQLCompleteTimestamp(string job, int seq, string updateText)
+        {
+            using (var conn = new SqlConnection(GetSQLServerConnectionString()))
+            {
+                conn.Open();
+                string noteQuery = @"
+                    UPDATE Job_Operation
+                    SET Floor_Notes = CAST(ISNULL(Floor_Notes, '') AS VARCHAR(MAX)) 
+                        + CHAR(13) + CHAR(10) + @line
+                    WHERE Job = @job AND Sequence = @seq;";
 
+                using (var cmd1 = new SqlCommand(noteQuery, conn))
+                {
+                    cmd1.Parameters.AddWithValue("@line", updateText);
+                    cmd1.Parameters.AddWithValue("@job", job);
+                    cmd1.Parameters.AddWithValue("@seq", seq);
+                    cmd1.ExecuteNonQuery();
+                }
 
+                string statusQuery = @"
+                    UPDATE Job_Operation
+                    SET Status = 'C'
+                    WHERE Job = @job AND Work_Center IN ('230 PROG', '220 MODEL');";
 
+                using (var cmd2 = new SqlCommand(statusQuery, conn))
+                {
+                    cmd2.Parameters.AddWithValue("@job", job);
+                    cmd2.ExecuteNonQuery();
+                }
+            }
+        }
 
+        // Completes the timestamp for a job operation in SQLite and closes operation
+        private void SQLiteCompleteTimestamp(string job, int seq, string updateText)
+        {
+            string dbPath = Path.Combine(Application.StartupPath, "Data", "MockERP.db");
+            string connectionString = $"Data Source={dbPath};Version=3;";
 
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string updateNotesQuery = @"
+                    UPDATE Job_Operation
+                    SET Floor_Notes = COALESCE(Floor_Notes, '') || CHAR(13) || CHAR(10) || @line
+                    WHERE Job = @job AND Sequence = @seq;";
+
+                using (var cmd1 = new SQLiteCommand(updateNotesQuery, conn))
+                {
+                    cmd1.Parameters.AddWithValue("@line", updateText);
+                    cmd1.Parameters.AddWithValue("@job", job);
+                    cmd1.Parameters.AddWithValue("@seq", seq);
+                    cmd1.ExecuteNonQuery();
+                }
+
+                string updateStatusQuery = @"
+                    UPDATE Job_Operation
+                    SET Status = 'Closed'
+                    WHERE Job = @job AND Work_Center IN ('230 PROG', '220 MODEL');";
+
+                using (var cmd2 = new SQLiteCommand(updateStatusQuery, conn))
+                {
+                    cmd2.Parameters.AddWithValue("@job", job);
+                    cmd2.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void resetMockDatabase_Click(object sender, EventArgs e)
+        {
+            ResetMockDatabase();
+        }
+
+        // Resets the mock database by setting all job operations to 'o' status and clearing floor notes
+        private void ResetMockDatabase()
+        {
+            string dbPath = Path.Combine(Application.StartupPath, "Data", "MockERP.db");
+            string connectionString = $"Data Source={dbPath};Version=3;";
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+                string resetQuery = @"
+            UPDATE Job_Operation
+            SET 
+                Status = 'o',
+                Floor_Notes = NULL;";
+
+                using (var cmd = new SQLiteCommand(resetQuery, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            ReloadData();
+            ApplyFilters();
+        }
     }
 }
 
